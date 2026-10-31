@@ -1,0 +1,941 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>बिरजू महाराज | एक कला, एक विरासत</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Kalam:wght@400;700&display=swap');
+
+:root {
+    --neon: #c8ff00;
+    --black: #050505;
+    --white: #f7f7f7;
+    --grey: #999999;
+    --panel: #101010;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Hind', sans-serif;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--neon);
+    color: var(--black);
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: var(--neon);
+    opacity: 0.055;
+    filter: blur(90px);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .035;
+    z-index: 10;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 76px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    background: rgba(5,5,5,.86);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid #252525;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--neon);
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--neon);
+}
+
+.nav-links a.active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: var(--neon);
+    margin-top: 4px;
+    box-shadow: 0 0 10px var(--neon);
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+    padding: 7px 12px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+section {
+    padding: 110px 9%;
+    position: relative;
+    scroll-margin-top: 65px;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 130px;
+}
+
+.hero::before {
+    content: "कथक";
+    position: absolute;
+    right: -20px;
+    top: 20%;
+    font-size: clamp(150px, 27vw, 390px);
+    font-weight: 700;
+    color: rgba(255,255,255,.025);
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    color: var(--neon);
+    letter-spacing: 4px;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-size: clamp(50px, 9vw, 110px);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.hero h1 span {
+    color: var(--neon);
+    text-shadow: 0 0 30px rgba(200,255,0,.3);
+}
+
+.hero-sub {
+    font-size: clamp(17px, 2vw, 23px);
+    color: #aaa;
+    margin-bottom: 32px;
+}
+
+.hero-line {
+    width: 100px;
+    height: 3px;
+    background: var(--neon);
+    box-shadow: 0 0 18px var(--neon);
+    margin: 30px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 27px;
+    background: var(--neon);
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 700;
+    border: 1px solid var(--neon);
+    transition: .3s;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background: transparent;
+    color: var(--neon);
+    box-shadow: 0 0 25px rgba(200,255,0,.2);
+    transform: translateY(-4px);
+}
+
+.hero-note {
+    margin-top: 70px;
+    color: #666;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.section-tag {
+    color: var(--neon);
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1.2;
+    margin-bottom: 22px;
+}
+
+.section-title span {
+    color: var(--neon);
+}
+
+.section-desc {
+    color: #aaa;
+    max-width: 700px;
+    line-height: 2;
+    font-size: 17px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 55px;
+    align-items: center;
+    margin-top: 55px;
+}
+
+.about-visual {
+    min-height: 350px;
+    background:
+        radial-gradient(circle at center, rgba(200,255,0,.15), transparent 65%),
+        linear-gradient(145deg,#161616,#080808);
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-visual::before,
+.about-visual::after {
+    content: "";
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border: 1px solid rgba(200,255,0,.35);
+    border-radius: 50%;
+    animation: rotate 18s linear infinite;
+}
+
+.about-visual::after {
+    width: 180px;
+    height: 180px;
+    border-style: dashed;
+    animation-direction: reverse;
+}
+
+.mandala {
+    color: var(--neon);
+    font-size: 100px;
+    opacity: .9;
+    z-index: 1;
+    animation: float 5s ease-in-out infinite;
+}
+
+.about-text p {
+    color: #aaa;
+    line-height: 2;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.fact-strip {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-top: 45px;
+}
+
+.fact {
+    border-left: 2px solid var(--neon);
+    padding: 15px 20px;
+    background: #101010;
+}
+
+.fact strong {
+    display: block;
+    color: var(--neon);
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.fact small {
+    color: #999;
+}
+
+.dark-section {
+    background: #0c0c0c;
+}
+
+.timeline {
+    margin-top: 55px;
+    border-left: 2px solid #333;
+    padding-left: 35px;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 0 0 45px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -43px;
+    top: 7px;
+    width: 14px;
+    height: 14px;
+    background: var(--neon);
+    border-radius: 50%;
+    box-shadow: 0 0 15px var(--neon);
+}
+
+.timeline-item h3 {
+    color: var(--neon);
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.timeline-item p {
+    color: #aaa;
+    line-height: 1.9;
+    max-width: 750px;
+}
+
+.interview-grid {
+    margin-top: 45px;
+    display: grid;
+    gap: 18px;
+}
+
+.interview-card {
+    border: 1px solid #303030;
+    background: var(--panel);
+    transition: .35s;
+}
+
+.interview-card:hover {
+    border-color: var(--neon);
+    transform: translateX(5px);
+}
+
+.question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    font-family: inherit;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.question span {
+    color: var(--neon);
+    font-size: 25px;
+    transition: .3s;
+}
+
+.answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease, padding .4s;
+    color: #aaa;
+    line-height: 2;
+    padding: 0 25px;
+}
+
+.interview-card.open .answer {
+    max-height: 220px;
+    padding: 0 25px 25px;
+}
+
+.interview-card.open .question span {
+    transform: rotate(45deg);
+}
+
+.art-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
+    margin-top: 45px;
+}
+
+.art-card {
+    background: #111;
+    border: 1px solid #292929;
+    padding: 30px;
+    min-height: 190px;
+    transition: .35s;
+    position: relative;
+    overflow: hidden;
+}
+
+.art-card:hover {
+    border-color: var(--neon);
+    transform: translateY(-7px);
+    box-shadow: 0 12px 35px rgba(200,255,0,.07);
+}
+
+.art-card .number {
+    color: var(--neon);
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.art-card h3 {
+    font-size: 27px;
+    margin: 15px 0 10px;
+}
+
+.art-card p {
+    color: #999;
+    line-height: 1.8;
+}
+
+.quote-section {
+    text-align: center;
+    background: var(--neon);
+    color: var(--black);
+    padding: 100px 10%;
+}
+
+.quote-section .quote-mark {
+    font-size: 65px;
+    line-height: 1;
+}
+
+.quote-section h2 {
+    font-size: clamp(28px,5vw,48px);
+    max-width: 900px;
+    margin: 20px auto;
+    line-height: 1.5;
+}
+
+.quote-section p {
+    font-size: 16px;
+}
+
+footer {
+    padding: 55px 9% 30px;
+    background: #050505;
+    text-align: center;
+}
+
+footer h2 {
+    color: var(--neon);
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #777;
+    margin: 10px 0;
+}
+
+.credit {
+    color: white;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    font-size: 15px;
+}
+
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--neon);
+    z-index: 200;
+    box-shadow: 0 0 12px var(--neon);
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@media(max-width: 800px) {
+    nav { padding: 0 5%; }
+    .menu-btn { display: block; }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: #080808;
+        flex-direction: column;
+        padding: 25px 8%;
+        gap: 20px;
+        border-bottom: 1px solid #333;
+    }
+
+    .nav-links.open { display: flex; }
+
+    .about-grid { grid-template-columns: 1fr; }
+    .art-grid { grid-template-columns: 1fr; }
+    .fact-strip { grid-template-columns: 1fr; }
+    section { padding: 90px 7%; }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cursor-glow" id="glow"></div>
+<div class="noise"></div>
+<div class="progress" id="progress"></div>
+
+<nav>
+    <div class="logo">कला. लय. विरासत.</div>
+
+    <button class="menu-btn" id="menuBtn" aria-label="मेन्यू खोलें">मेन्यू</button>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">मुखपृष्ठ</a></li>
+        <li><a href="#about">परिचय</a></li>
+        <li><a href="#journey">जीवन यात्रा</a></li>
+        <li><a href="#interview">साक्षात्कार</a></li>
+        <li><a href="#kathak">कथक</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="eyebrow">भारतीय शास्त्रीय नृत्य की एक अमर विरासत</div>
+
+        <h1>पंडित<br><span>बिरजू महाराज</span></h1>
+
+        <div class="hero-line"></div>
+
+        <p class="hero-sub">
+            एक कलाकार, एक गुरु और कथक की दुनिया का एक अमूल्य नाम।
+        </p>
+
+        <a href="#about" class="btn">इस यात्रा को जानें</a>
+
+        <p class="hero-note">मल्हार · कक्षा सातवीं · हिंदी</p>
+    </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+    <div class="reveal">
+        <div class="section-tag">01 / परिचय</div>
+        <h2 class="section-title">कला की दुनिया का <span>एक सितारा</span></h2>
+
+        <p class="section-desc">
+            पंडित बिरजू महाराज भारतीय शास्त्रीय नृत्य की दुनिया के
+            महान कथक कलाकारों में से एक थे। उन्होंने अपनी कला,
+            मेहनत और रचनात्मकता से कथक को एक नई पहचान दिलाई।
+        </p>
+    </div>
+
+    <div class="about-grid reveal">
+        <div class="about-visual">
+            <div class="mandala">✳</div>
+        </div>
+
+        <div class="about-text">
+            <p>
+                बिरजू महाराज का संबंध कथक की प्रसिद्ध कालका-बिंदादीन
+                घराने की परंपरा से था। उनके परिवार में कई पीढ़ियों
+                से कथक की कला सिखाई जाती रही थी।
+            </p>
+
+            <p>
+                उन्होंने बचपन से ही नृत्य और संगीत के वातावरण में
+                रहकर इस कला को सीखा। उनकी प्रस्तुति में भाव,
+                अभिनय, लय और ताल का सुंदर मेल दिखाई देता था।
+            </p>
+
+            <p>
+                वे केवल नर्तक ही नहीं, बल्कि एक अच्छे शिक्षक,
+                संगीतकार और रचनात्मक कलाकार भी थे।
+            </p>
+        </div>
+    </div>
+
+    <div class="fact-strip reveal">
+        <div class="fact">
+            <strong>कथक</strong>
+            <small>उनकी प्रमुख कला</small>
+        </div>
+        <div class="fact">
+            <strong>लखनऊ</strong>
+            <small>कथक घराने की परंपरा</small>
+        </div>
+        <div class="fact">
+            <strong>गुरु</strong>
+            <small>कला को आगे बढ़ाने वाले शिक्षक</small>
+        </div>
+    </div>
+</section>
+
+<!-- JOURNEY -->
+
+<section class="dark-section" id="journey">
+    <div class="reveal">
+        <div class="section-tag">02 / जीवन यात्रा</div>
+        <h2 class="section-title">संघर्ष से <span>सफलता तक</span></h2>
+        <p class="section-desc">
+            उनकी जीवन यात्रा हमें सिखाती है कि कठिनाइयों के
+            बावजूद अपने सपनों और रुचियों के प्रति समर्पित रहना
+            कितना महत्त्वपूर्ण है।
+        </p>
+    </div>
+
+    <div class="timeline reveal">
+
+        <div class="timeline-item">
+            <h3>बचपन और परिवार</h3>
+            <p>
+                बिरजू महाराज का जन्म एक ऐसे परिवार में हुआ
+                जहाँ कथक की समृद्ध परंपरा थी। उनके पिता और
+                परिवार के अन्य सदस्य इस कला से जुड़े हुए थे।
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>कठिन समय</h3>
+            <p>
+                पिता के निधन के बाद परिवार को आर्थिक कठिनाइयों
+                का सामना करना पड़ा। उनकी माता ने उनका साथ दिया
+                और उन्हें आगे बढ़ने की प्रेरणा दी।
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>कला के प्रति समर्पण</h3>
+            <p>
+                कठिन परिस्थितियों के बावजूद उन्होंने कथक का
+                अभ्यास जारी रखा। धीरे-धीरे उन्होंने अपनी कला
+                के माध्यम से एक अलग पहचान बनाई।
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>एक महान विरासत</h3>
+            <p>
+                उन्होंने अपने ज्ञान और अनुभव से अनेक विद्यार्थियों
+                को कथक सिखाया और भारतीय शास्त्रीय नृत्य की
+                परंपरा को आगे बढ़ाया।
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- INTERVIEW -->
+
+<section id="interview">
+    <div class="reveal">
+        <div class="section-tag">03 / विशेष बातचीत</div>
+        <h2 class="section-title">बिरजू महाराज से <span>साक्षात्कार</span></h2>
+        <p class="section-desc">
+            आइए, उनके जीवन, विचारों और कथक के प्रति उनके
+            समर्पण को कुछ रोचक प्रश्नों के माध्यम से समझें।
+            किसी प्रश्न पर क्लिक करके उसका उत्तर पढ़ें।
+        </p>
+    </div>
+
+    <div class="interview-grid reveal">
+
+        <div class="interview-card">
+            <button class="question">
+                आपके जीवन में इतनी कठिनाइयाँ आने के बाद भी
+                आपने कथक का अभ्यास कैसे जारी रखा?
+                <span>+</span>
+            </button>
+            <div class="answer">
+                पिता के देहांत के बाद परिवार की आर्थिक स्थिति
+                खराब हो गई थी। ऐसे समय में मेरी अम्मा ने मेरा
+                बहुत साथ दिया और हमेशा अभ्यास करते रहने की
+                प्रेरणा दी। उनकी सीख ने मुझे कभी हार मानने नहीं दी।
+            </div>
+        </div>
+
+        <div class="interview-card">
+            <button class="question">
+                आपने गुरु और शिष्य के बीच गंडा बाँधने की
+                परंपरा में क्या बदलाव किया और क्यों?
+                <span>+</span>
+            </button>
+            <div class="answer">
+                मैंने इस परंपरा को थोड़े अलग ढंग से अपनाया।
+                मैं शिष्य की सच्ची लगन और समर्पण को महत्त्व देता था।
+                मेरे लिए गुरु और शिष्य का रिश्ता विश्वास और
+                सम्मान पर आधारित होना चाहिए।
+            </div>
+        </div>
+
+        <div class="interview-card">
+            <button class="question">
+                आपके अनुसार कथक सीखने के लिए सबसे ज़रूरी
+                बात क्या है?
+                <span>+</span>
+            </button>
+            <div class="answer">
+                कथक सीखने के लिए लय और संगीत की अच्छी समझ
+                होना बहुत ज़रूरी है। इसके लिए लगातार अभ्यास
+                और धैर्य की भी आवश्यकता होती है। केवल नृत्य
+                करना ही नहीं, बल्कि उसके भावों को समझना भी ज़रूरी है।
+            </div>
+        </div>
+
+    </div>
+
+    <p style="color:#666; font-size:13px; margin-top:18px;">
+        उत्तर साक्षात्कार के विषयों पर आधारित सरल प्रस्तुति हैं,
+        मूल शब्दशः उद्धरण नहीं।
+    </p>
+</section>
+
+<!-- KATHAK -->
+
+<section class="dark-section" id="kathak">
+    <div class="reveal">
+        <div class="section-tag">04 / कला का संसार</div>
+        <h2 class="section-title">समझिए <span>कथक को</span></h2>
+        <p class="section-desc">
+            कथक केवल कदमों का नृत्य नहीं है। इसमें संगीत,
+            भावनाएँ, ताल और अभिनय का अद्भुत मेल होता है।
+        </p>
+    </div>
+
+    <div class="art-grid reveal">
+
+        <div class="art-card">
+            <div class="number">01 / लय</div>
+            <h3>लय</h3>
+            <p>
+                संगीत और नृत्य की गति को लय कहते हैं।
+                यह नृत्य को एक सुंदर प्रवाह प्रदान करती है।
+            </p>
+        </div>
+
+        <div class="art-card">
+            <div class="number">02 / ताल</div>
+            <h3>ताल</h3>
+            <p>
+                ताल संगीत और नृत्य की निश्चित मात्राओं का
+                क्रम होता है। इससे नृत्य में संतुलन आता है।
+            </p>
+        </div>
+
+        <div class="art-card">
+            <div class="number">03 / भाव</div>
+            <h3>भाव</h3>
+            <p>
+                चेहरे और शरीर के हाव-भाव से अपनी भावनाएँ
+                व्यक्त करना कथक का एक महत्त्वपूर्ण हिस्सा है।
+            </p>
+        </div>
+
+        <div class="art-card">
+            <div class="number">04 / अभिनय</div>
+            <h3>अभिनय</h3>
+            <p>
+                अभिनय के माध्यम से नर्तक अपनी प्रस्तुति में
+                कहानी और भावनाओं को जीवंत बनाता है।
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- QUOTE -->
+
+<div class="quote-section reveal">
+    <div class="quote-mark">“</div>
+    <h2>
+        कला केवल सीखी नहीं जाती,
+        उसे महसूस भी किया जाता है।
+    </h2>
+    <p>समर्पण और साधना ही कला को सुंदर बनाते हैं।</p>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+    <h2>एक कला, एक विरासत।</h2>
+    <p>पंडित बिरजू महाराज को समर्पित।</p>
+    <p>मल्हार · कक्षा सातवीं · हिंदी परियोजना</p>
+
+    <div class="credit">अव्यन व प्रभव द्वारा निर्मित</div>
+
+    <p style="margin-top:35px; font-size:12px;">
+        © 2026 · एक सांस्कृतिक प्रस्तुति
+    </p>
+</footer>
+
+<script>
+// Cursor glow
+const glow = document.getElementById("glow");
+
+document.addEventListener("mousemove", (e) => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+});
+
+// Mobile menu
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+});
+
+// Close menu after selecting a section
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+    });
+});
+
+// Interview accordion
+document.querySelectorAll(".question").forEach(button => {
+    button.addEventListener("click", () => {
+        const card = button.parentElement;
+        const wasOpen = card.classList.contains("open");
+
+        document.querySelectorAll(".interview-card").forEach(item => {
+            item.classList.remove("open");
+        });
+
+        if (!wasOpen) {
+            card.classList.add("open");
+        }
+    });
+});
+
+// Reveal elements while scrolling
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(element => {
+    observer.observe(element);
+});
+
+// Navigation active indicator
+const sections = document.querySelectorAll("section[id]");
+const navItems = document.querySelectorAll(".nav-links a");
+
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            navItems.forEach(link => {
+                link.classList.toggle(
+                    "active",
+                    link.getAttribute("href") === "#" + entry.target.id
+                );
+            });
+        }
+    });
+}, { rootMargin: "-35% 0px -55% 0px" });
+
+sections.forEach(section => navObserver.observe(section));
+
+// Reading progress
+window.addEventListener("scroll", () => {
+    const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+    const percentage = scrollable > 0
+        ? (window.scrollY / scrollable) * 100
+        : 0;
+
+    document.getElementById("progress").style.width =
+        percentage + "%";
+});
+</script>
+
+</body>
+</html>
